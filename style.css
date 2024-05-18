@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'baal';
+    src: url('balenci.woff2') format('woff2'),
+         url('balenci.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 48px;  /* Adjust the size as needed */
+}
+
+@font-face {
+    font-family: 'vete';
+    src: url('vetemens.woff2') format('woff2');
+    font-weight: normal;
+    font-style:normal;
+}
+
+@font-face {
+    font-family : 'nbaal';
+    src: url('newbaal.woff2') format('woff2');
+}
+
+/* note hehe */
+/*general text*/
+body {
+    font-family: 'nbaal', sans-serif;
+}
+
+.baal-font {
+    font-family: 'baal', sans-serif;
+}
+
+.nbaal-font{
+    font-family: 'nbaal', sans-serif;
+}
+.vete-font{
+    font-family: 'vete', sans-serif;
+}
+
+.contact {
+    font-family: 'nbaal', sans-serif;
+    margin-top: 10px;
+}
+
+.tight-spacing {
+    line-height: 0.5; 
+}
