@@ -6,36 +6,41 @@
     font-style: normal;
 }
 
-h1 {
-    font-size: 48px;  /* Adjust the size as needed */
-}
-
 @font-face {
     font-family: 'vete';
     src: url('vetemens.woff2') format('woff2');
     font-weight: normal;
-    font-style:normal;
+    font-style: normal;
 }
 
 @font-face {
-    font-family : 'nbaal';
+    font-family: 'nbaal';
     src: url('newbaal.woff2') format('woff2');
 }
 
-/* note hehe */
-/*general text*/
 body {
     font-family: 'nbaal', sans-serif;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 48px;
+    margin: 0;
 }
 
 .baal-font {
     font-family: 'baal', sans-serif;
 }
 
-.nbaal-font{
+.nbaal-font {
     font-family: 'nbaal', sans-serif;
 }
-.vete-font{
+
+.vete-font {
     font-family: 'vete', sans-serif;
 }
 
@@ -45,27 +50,80 @@ body {
 }
 
 .tight-spacing {
-    line-height: 0.5; 
+    line-height: 0.5;
 }
-
-
 
 .thumbnail {
-    width: 200px; /* Adjust size as needed */
-    height: 200px;
-    margin-right: 1000px; /* Space between image and title */
-    }
-
-    .title-container {
-    display: flex;
-    align-items: center; /* Aligns items vertically in the center */
-    }
-
-.story {
-    width: 300px;
-    height: 300px;
+    width: 120px;
+    height: 120px;
 }
 
-.link {
-    color: black;
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Divider */
+.divider {
+    height: 8px;
+    border: none;
+    background-color: white;
+    margin: 1rem 0;
+}
+
+/* Poem section */
+.main-content {
+    padding: 0 1rem;
+
+}
+
+.poem {
+    font-size: 20px;
+    text-align: left;
+    line-height: 1.2;
+    max-width: 800px;
+
+}
+
+.line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 0.4em;
+    margin: 0.5rem 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.line span {
+    opacity: 1;
+    transition: opacity 2s ease, transform 2s ease;
+    transform: translateY(0);
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+/* Mobile support */
+@media (max-width: 768px) {
+    .title-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .thumbnail {
+        width: 150px;
+        height: auto;
+    }
+
+    .line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
