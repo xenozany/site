@@ -1,84 +1,194 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xenozany</title>
-    <link rel="stylesheet" href="style.css">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XENOZANY</title>
+  <style>
+    @font-face {
+      font-family: 'Balenci';
+      src: url('balenci.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100vh; width: 100vw;
+      background: white; color: black;
+      font-family: 'Balenci', sans-serif;
+      overflow: hidden;
+    }
+    .main-row {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  gap: 10vw; /* adjust for desired column spacing */
 
-  
+}
+    .scroll-col {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+  margin: 0 1vw; /* adjust value as needed */
+    }
+    .words {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+    }
+    .word {
+      font-size: 5vw;
+      font-weight: bold;
+      line-height: 1.1;
+      text-align: center;
+      user-select: none;
+      white-space: nowrap;
+      margin: 1vw 0;
+    }
+  </style>
 </head>
-
 <body>
+  <h1 class="baal-font site-title" style="transform: translatex(1 rem);">XENOZANY.COM</h1>
+<hr style="height: 10px;border-width:0;color:rgb(0, 0, 0);background-color:rgb(0, 0, 0)">
 
-<!-- https://www.heavenly-angels.org/ -->
-    <header class="title-container">
-        <img src="roth.png" alt="left crest" class="thumbnail" style="transform: translatex(-2.3rem);" >
-        <h1 class="baal-font site-title" style="transform: translatex(-3.5rem);">XENOZANY.COM</h1>
-       
-      </header>
-      
-      <hr class="divider">
-    <hr style="height: 10px;border-width:0;color:rgb(0, 0, 0);background-color:rgb(0, 0, 0)">
-    <hr style="height: 10px;border-width:0;color:rgb(255, 255, 255);background-color:rgb(255, 255, 255)">
-
-     <!-- בעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעלבעל TEL AVIV, 2ND AUGUST, 1948 TO GOD AND TO BAAL.  -->
-      
-      <!-- the choice of military governor exhibits the same tendency—to serve simultaneously God and Baal -->
-<!-- בעלבעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעל בעלבעל בעל בעל בעל בעל -->
-
-<!-- Consolatio peccatorum, seu Processus Luciferi contra Jesum Christum -->
-
-    <main class="main-content">
-        <div class="poem" id="poem">
-          <div class="line" id="line0"> <span>PHOBIE</span> <span>d'IMPULSION,</span> <span>COMME</span> <span>UN ENFANT</span> <span>DÉPRIMÉ</span> </div>
-          <div class="line hidden" id="line1"> <span>IS THERE</span> <span>MORE NOW</span> <span> THAN WHAT WAS?</span> </div>
-          <div class="line hidden" id="line2"> <span>WILL I</span> <span>EVER LIVE</span> <span>DOWN WHAT</span> <span>I'VE DONE?</span> </div>
-
-          <div class="line hidden" id="line3"> <span>EVEN THOUGH</span> <span>I TRIED TO</span> <span>HOLD BACK FROM</span> <span id="dynamic1">JUDGING</span></div>
-          <div class="line hidden" id="line4"> <span>I ALWAYS END UP</span> <span>AND REFLECT THAT;</span> <span>NO MATTER</span> <span>HOW MUCH</span> <span>IT LETS</span> <span>ME DOWN,</span> </div>
-          <div class="line hidden" id="line5"> <span>I</span> <span>CANNOT STOP</span> <span>MYSELF, FROM</span> <span>CARING.</span> </div>
-          <div class="line hidden" id="line6"> <span>MY</span> <span>MIND</span> <span>IS STUCK AT</span> <span>EMPATHY.</span> </div>
-          <div class="line hidden" id="line7"> <span>AND</span> <span>FOR</span> <span style="font-size:2em;">WHAT?</span> </div>
-          <div class="line hidden" id="line8"> <span>FOR</span> <span>SOMEONE WHO WOULDN'T</span> <span style="font-size:1em; transform: translateY(-3px);"> CARE?</span> <span style="font-size:1.2em; transform: translateY(-1.5px);">SUPPORT?</span> <span style="font-size:1.5em; transform: translateY(-3px);"> OR HELP,</span> <span style="font-size:2em;"> ME?</span> </div>
-
-          <div class="line hidden" id="line9"> <span>SO CAN</span> <span>YOU TRY TO</span> <span>UNDERSTAND ME?</span> </div>
-
-          <div class="line hidden" id="line10"> <span>BECAUSE,</span> <span>THIS IS</span> <span>HOW I SHOW,</span> <span style="font-size:2em">THAT I CARE</span> </div>
-
-          <div class="line hidden" id="line11"> <span>I KNOW NOW,</span> <span>HOW EASY, THINGS</span> <span>TURN AROUND</span> <span>AND BREAK.</span> </div>
-
-          <div class="line hidden" id="line12">
-            <span>HUNDREDS AND HUNDREDS</span>
-            <span>OF MEMORIES</span>
-            <span style="font-size:1.5em;">GONE</span>
-            <span>WITH A</span>
-            <span>SINGLE</span>
-            <span style="font-size:1.5em; transform: translateY(-2px);" id="dramatic-word">MOMENT</span>
-          </div>
-
-          <div class="line hidden" id="line13"> <span>ITS SOMETHING</span> <span>I COULD</span> <span>NEVER FORGET</span> </div>
-          
-
-          <div class="line hidden" id="line14"> <span>HOW COULD</span> <span>EVERYTHING</span> <span>,WE'VE DONE.. BE</span> <span>BROKEN?</span> </div>
-
-          <div class="line hidden" id="line15"> <span>AND</span> <span>THE</span> <span>WORST PART</span> <span>IS,</span> </div>
+  <!-- the choice of military governor exhibits the same tendency—to serve simultaneously God and Baal -->
+  <!-- stay ignorant, if you were silent about the atrocities then, you should stay silent about the evil now-->
+  
+  <!-- look around you, and look at what theyre feeding you-->
+   <!-- I promise, its annoying, but theres a reason why they persisting on that topic-->
+    <!-- whether you believe in god or not, theres something wrong with how the world is-->
+     <!-- and I hope, and I pray, that everyone finds out and does something about it-->
+      <!-- because, theres not enough love and respect in the world-->
+       <!-- and ill swallow, my pride, even tho its a lil zesty, but I love you-->
+        <!-- listen to some new music, something weird, zany-->
+         <!-- try a new outfit, something different, foreign, xeno-->
+          <!-- make your life, worth living for, its nobody elses responsibility-->
+           <!-- but yours. :) -->
 
 
-          <div class="line hidden" id="line16"> <span style="font-size:2em;">I'LL</span> <span style="font-size:2em;"> ALWAYS FEEL</span> <span style="font-size:2em;" id="dynamic2">RESPONSIBLE</span> </div>
-        </div>
-      </main>
-    
-
-      
-
-      <script src="script.js"></script>
+  <div class="main-row">
+    <div class="scroll-col"><div class="words" id="left"></div></div>
+    <div class="scroll-col"><div class="words" id="center"></div></div>
+    <div class="scroll-col"><div class="words" id="right"></div></div>
+  </div>
 
 
-<!-- https://www.digitale-sammlungen.de/de/view/bsb10149302?page=26 -->
 
+  <script>
+    // Parameters
+    const word = "XENOZANY";
+    const speed = 2; // px per frame (lower = slower)
+    const spacingVW = 0.2; // adjust for space between words //horizontal spacing in vw
+
+
+    // Create a word element
+    // This function creates a word element with the specified word and spacing 
+    // el.style.margin is set to spacingVW vw for vertical spacing
+    function createWordElement() {
+      const el = document.createElement('div');
+      el.className = 'word';
+      el.textContent = word;
+      el.style.margin = `${spacingVW}vw 0`;
+      return el;
+    }
+
+    function setupColumn(colId, direction) {
+      const container = document.getElementById(colId);
+
+      // Create enough words to fill the column + 2 extra
+      const temp = createWordElement();
+      temp.style.visibility = 'hidden';
+      document.body.appendChild(temp);
+      const wordHeight = temp.offsetHeight + parseInt(getComputedStyle(temp).marginTop) + parseInt(getComputedStyle(temp).marginBottom);
+      document.body.removeChild(temp);
+      const visibleCount = Math.ceil(window.innerHeight / wordHeight) + 2;
+
+      // Fill the container
+      container.innerHTML = '';
+      for (let i = 0; i < visibleCount; i++) {
+        container.appendChild(createWordElement());
+      }
+
+      let offset = 0;
+
+      function animate() {
+        // Scroll position: move the container
+        if (direction === 'down') {
+          offset += speed;
+          if (offset >= wordHeight) {
+            // Move first child to end, reset offset
+            container.appendChild(container.firstElementChild);
+            offset -= wordHeight;
+          }
+        } else {
+          offset -= speed;
+          if (offset <= -wordHeight) {
+            // Move last child to start, reset offset
+            container.insertBefore(container.lastElementChild, container.firstElementChild);
+            offset += wordHeight;
+          }
+        }
+        container.style.transform = `translateY(${offset}px)`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Responsive: refill on resize
+      window.addEventListener('resize', () => {
+        setupColumn(colId, direction);
+      }, { once: true }); // prevents stacking multiple listeners
+    }
+
+    setupColumn('left', 'down');
+    setupColumn('center', 'up');
+    setupColumn('right', 'down');
+  </script>
+
+ <!-- ...your main content and main-row... -->
+
+<div class="footer-bar">
+  <hr class="footer-divider">
+  <a href="before25.html" class="nav-link">BEFORE SS25</a>
+</div>
+
+<style>
+  .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2; /* Always above scroll animation */
+    padding-bottom: 12px;
+  }
+  .footer-divider {
+    width: 80vw;
+    height: 10px;
+    border: none;
+    background: black;
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  .nav-link {
+    color: black;
+    text-decoration: underline;
+    font-family: 'Balenci', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+  }
+  .nav-link:hover {
+    color: #666;
+  }
+</style>
 
 </body>
 </html>
