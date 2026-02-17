@@ -58,7 +58,7 @@
 
   <!-- the choice of military governor exhibits the same tendency—to serve simultaneously God and Baal -->
   <!-- stay ignorant, if you were silent about the atrocities then, you should stay silent about the evil now-->
-  
+
   <!-- look around you, and look at what theyre feeding you-->
    <!-- I promise, its annoying, but theres a reason why they persisting on that topic-->
     <!-- whether you believe in god or not, theres something wrong with how the world is-->
@@ -82,7 +82,7 @@
   <script>
     // Parameters
     const word = "XENOZANY";
-    const speed = 2; // px per frame (lower = slower)
+    const speed = 120; // px per second
     const spacingVW = 0.2; // adjust for space between words //horizontal spacing in vw
 
 
@@ -95,8 +95,16 @@
       return el;
     }
 
+    const columnStates = new Map();
+
     function setupColumn(colId, direction) {
       const container = document.getElementById(colId);
+
+      // Clear any previous animation loop for this column
+      const previousState = columnStates.get(colId);
+      if (previousState?.animationId) {
+        cancelAnimationFrame(previousState.animationId);
+      }
 
       // Create enough words to fill the column + 2 extra
       const temp = createWordElement();
@@ -104,7 +112,7 @@
       document.body.appendChild(temp);
       const wordHeight = temp.offsetHeight + parseInt(getComputedStyle(temp).marginTop) + parseInt(getComputedStyle(temp).marginBottom);
       document.body.removeChild(temp);
-      const visibleCount = Math.ceil(window.innerHeight / wordHeight) + 2;
+      const visibleCount = Math.ceil(window.innerHeight / wordHeight) + 4;
 
       // Fill the container
       container.innerHTML = '';
@@ -112,39 +120,47 @@
         container.appendChild(createWordElement());
       }
 
-      let offset = 0;
+      let offset = -wordHeight / 2;
+      let lastTimestamp = performance.now();
+      const directionSign = direction === 'down' ? 1 : -1;
 
-      function animate() {
-        // Scroll position: move the container
-        if (direction === 'down') {
-          offset += speed;
-          if (offset >= wordHeight) {
-            // Move first child to end, reset offset
-            container.appendChild(container.firstElementChild);
-            offset -= wordHeight;
-          }
-        } else {
-          offset -= speed;
-          if (offset <= -wordHeight) {
-            // Move last child to start, reset offset
-            container.insertBefore(container.lastElementChild, container.firstElementChild);
-            offset += wordHeight;
-          }
+      const state = {
+        animationId: null
+      };
+      columnStates.set(colId, state);
+
+      function animate(timestamp) {
+        const deltaSeconds = (timestamp - lastTimestamp) / 1000;
+        lastTimestamp = timestamp;
+
+        offset += directionSign * speed * deltaSeconds;
+
+        while (offset >= wordHeight) {
+          container.appendChild(container.firstElementChild);
+          offset -= wordHeight;
         }
-        container.style.transform = `translateY(${offset}px)`;
-        requestAnimationFrame(animate);
-      }
-      animate();
 
-      // Responsive: refill on resize
-      window.addEventListener('resize', () => {
-        setupColumn(colId, direction);
-      }, { once: true }); // prevents stacking multiple listeners
+        while (offset <= -wordHeight) {
+          container.insertBefore(container.lastElementChild, container.firstElementChild);
+          offset += wordHeight;
+        }
+
+        container.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+        state.animationId = requestAnimationFrame(animate);
+      }
+
+      state.animationId = requestAnimationFrame(animate);
     }
 
     setupColumn('left', 'down');
     setupColumn('center', 'up');
     setupColumn('right', 'down');
+
+    window.addEventListener('resize', () => {
+      setupColumn('left', 'down');
+      setupColumn('center', 'up');
+      setupColumn('right', 'down');
+    });
   </script>
 
 
