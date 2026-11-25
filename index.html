@@ -1,207 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XENOZANY</title>
-  <style>
-    @font-face {
-      font-family: 'Balenci';
-      src: url('balenci.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-    }
-    html, body {
-      margin: 0; padding: 0;
-      height: 100vh; width: 100vw;
-      background: white; color: black;
-      font-family: 'Balenci', sans-serif;
-      overflow: hidden;
-    }
-    .main-row {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  gap: 10vw; /* adjust for desired column spacing */
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A personal space for side projects, old things, and little notes. Take a look around.">
 
-}
-    .scroll-col {
-  flex: 1 1 0;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  overflow: hidden;
-  position: relative;
-  height: 100vh;
-  margin: 0 1vw; /* adjust value as needed */
-    }
-    .words {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      will-change: transform;
-    }
-    .word {
-      font-size: 5vw;
-      font-weight: bold;
-      line-height: 1.1;
-      text-align: center;
-      user-select: none;
-      white-space: nowrap;
-      margin: 1vw 0;
-    }
-  </style>
+  <meta name="theme-color" content="#f7f7f7">
+  <meta property="og:title" content="XENOZANY / a personal space">
+  <meta property="og:description" content="A personal space for side projects, old things, and little notes. Take a look around.">
+  <meta property="og:type" content="website">
+  <title>XENOZANY / a personal space</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="balenci.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('xeno-theme')==='dark'?'dark':'light';if(localStorage.getItem('xeno-motion')==='paused')document.documentElement.classList.add('motion-paused')}catch(e){}</script>
+  <script src="assets/site.js" defer></script>
 </head>
-<body>
-  <h1 class="baal-font site-title" style="transform: translatex(1 rem);">XENOZANY.COM</h1>
-<hr style="height: 10px;border-width:0;color:rgb(0, 0, 0);background-color:rgb(0, 0, 0)">
-
-  <!-- the choice of military governor exhibits the same tendency—to serve simultaneously God and Baal -->
-  <!-- stay ignorant, if you were silent about the atrocities then, you should stay silent about the evil now-->
-
-  <!-- look around you, and look at what theyre feeding you-->
-   <!-- I promise, its annoying, but theres a reason why they persisting on that topic-->
-    <!-- whether you believe in god or not, theres something wrong with how the world is-->
-     <!-- and I hope, and I pray, that everyone finds out and does something about it-->
-      <!-- because, theres not enough love and respect in the world-->
-       <!-- and ill swallow, my pride, even tho its a lil zesty, but I love you-->
-        <!-- listen to some new music, something weird, zany-->
-         <!-- try a new outfit, something different, foreign, xeno-->
-          <!-- make your life, worth living for, its nobody elses responsibility-->
-           <!-- but yours. :) -->
-
-
-  <div class="main-row">
-    <div class="scroll-col"><div class="words" id="left"></div></div>
-    <div class="scroll-col"><div class="words" id="center"></div></div>
-    <div class="scroll-col"><div class="words" id="right"></div></div>
-  </div>
-
-
-
-  <script>
-    // Parameters
-    const word = "XENOZANY";
-    const speed = 120; // px per second
-    const spacingVW = 0.2; // adjust for space between words //horizontal spacing in vw
-
-
-
-    function createWordElement() {
-      const el = document.createElement('div');
-      el.className = 'word';
-      el.textContent = word;
-      el.style.margin = `${spacingVW}vw 0`;
-      return el;
-    }
-
-    const columnStates = new Map();
-
-    function setupColumn(colId, direction) {
-      const container = document.getElementById(colId);
-
-      // Clear any previous animation loop for this column
-      const previousState = columnStates.get(colId);
-      if (previousState?.animationId) {
-        cancelAnimationFrame(previousState.animationId);
-      }
-
-      // Create enough words to fill the column + 2 extra
-      const temp = createWordElement();
-      temp.style.visibility = 'hidden';
-      document.body.appendChild(temp);
-      const wordHeight = temp.offsetHeight + parseInt(getComputedStyle(temp).marginTop) + parseInt(getComputedStyle(temp).marginBottom);
-      document.body.removeChild(temp);
-      const visibleCount = Math.ceil(window.innerHeight / wordHeight) + 4;
-
-      // Fill the container
-      container.innerHTML = '';
-      for (let i = 0; i < visibleCount; i++) {
-        container.appendChild(createWordElement());
-      }
-
-      let offset = -wordHeight / 2;
-      let lastTimestamp = performance.now();
-      const directionSign = direction === 'down' ? 1 : -1;
-
-      const state = {
-        animationId: null
-      };
-      columnStates.set(colId, state);
-
-      function animate(timestamp) {
-        const deltaSeconds = (timestamp - lastTimestamp) / 1000;
-        lastTimestamp = timestamp;
-
-        offset += directionSign * speed * deltaSeconds;
-
-        while (offset >= wordHeight) {
-          container.appendChild(container.firstElementChild);
-          offset -= wordHeight;
-        }
-
-        while (offset <= -wordHeight) {
-          container.insertBefore(container.lastElementChild, container.firstElementChild);
-          offset += wordHeight;
-        }
-
-        container.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
-        state.animationId = requestAnimationFrame(animate);
-      }
-
-      state.animationId = requestAnimationFrame(animate);
-    }
-
-    setupColumn('left', 'down');
-    setupColumn('center', 'up');
-    setupColumn('right', 'down');
-
-    window.addEventListener('resize', () => {
-      setupColumn('left', 'down');
-      setupColumn('center', 'up');
-      setupColumn('right', 'down');
-    });
-  </script>
-
-
-<div class="footer-bar">
-  <hr class="footer-divider">
-  <a href="before25.html" class="nav-link">BEFORE SS25</a>
-</div>
-
-<style>
-  .footer-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2; /* Always above scroll animation */
-    padding-bottom: 12px;
-  }
-  .footer-divider {
-    width: 80vw;
-    height: 10px;
-    border: none;
-    background: black;
-    margin-bottom: 8px;
-    margin-top: 0;
-  }
-  .nav-link {
-    color: black;
-    text-decoration: underline;
-    font-family: 'Balenci', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    margin-bottom: 0;
-  }
-  .nav-link:hover {
-    color: #666;
-  }
-</style>
-
+<body class="home">
+<!-- the choice of military governor exhibits the same tendency—to serve simultaneously God and Baal -->
+<!-- stay ignorant, if you were silent about the atrocities then, you should stay silent about the evil now-->
+<!-- look around you, and look at what theyre feeding you-->
+<!-- I promise, its annoying, but theres a reason why they persisting on that topic-->
+<!-- whether you believe in god or not, theres something wrong with how the world is-->
+<!-- and I hope, and I pray, that everyone finds out and does something about it-->
+<!-- because, theres not enough love and respect in the world-->
+<!-- and ill swallow, my pride, even tho its a lil zesty, but I love you-->
+<!-- listen to some new music, something weird, zany-->
+<!-- try a new outfit, something different, foreign, xeno-->
+<!-- make your life, worth living for, its nobody elses responsibility-->
+<!-- but yours. :) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Xenozany home">XENOZANY.COM</a>
+  <span class="header-center eyebrow">a personal space on the internet</span>
+  <div class="header-end"><button class="secret-trigger" type="button" data-open-note aria-label="A little note">*</button></div>
+</header>
+<main class="home-stage" id="main">
+  <h1 class="sr-only">Xenozany</h1>
+  <div class="type-wall" aria-hidden="true"><div class="type-column"><div class="type-track"><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span></div></div><div class="type-column"><div class="type-track"><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span></div></div><div class="type-column"><div class="type-track"><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word slant">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word outline">XENOZANY</span><span class="type-word">XENOZANY</span><span class="type-word">XENOZANY</span></div></div></div>
+  <div class="entry"><a class="entry-link" href="etc.html" aria-label="etc. — explore the projects and archive">etc.</a><span class="entry-caption">a few things, and then some.</span></div>
+  <span class="stage-note">a work in progress. so am i.</span>
+</main><footer class="site-footer">
+  <span class="mono footer-note">XENOZANY.COM / EST. 2024</span>
+  <div class="footer-tools"><button class="control" data-motion-toggle type="button" aria-pressed="false">motion on</button><button class="control" data-theme-toggle type="button">lights off</button></div>
+</footer>
+<dialog class="note-dialog" id="little-note" aria-labelledby="note-title">
+  <div class="dialog-top"><span class="eyebrow" id="note-title">you found a little note.</span><button class="dialog-close" type="button" data-close-dialog aria-label="Close note">close [×]</button></div>
+  <div class="note-symbol" aria-hidden="true">*</div>
+  <p class="note-copy" data-note-copy aria-live="polite">listen to some new music, something weird, zany.</p>
+  <div class="note-bottom mono"><span>there's always a little more.</span><button class="note-next" type="button" data-next-note>another note</button></div>
+</dialog>
 </body>
 </html>
